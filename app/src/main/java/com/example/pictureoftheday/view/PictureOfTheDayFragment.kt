@@ -1,9 +1,12 @@
 package com.example.pictureoftheday.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -12,6 +15,7 @@ import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
@@ -21,6 +25,8 @@ class PictureOfTheDayFragment : Fragment() {
         get() {
             return _binding!!
         }
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
@@ -42,11 +48,18 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        binding.inputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            })
+        }
+
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
         viewModel.getData(GregorianCalendar().apply { add(Calendar.DATE,-1) }.time)
-
     }
 
     private fun renderData(appState: PictureOfTheDayAppState) {
@@ -73,6 +86,11 @@ class PictureOfTheDayFragment : Fragment() {
                 toast(appState.error.message)
             }
         }
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     override fun onDestroy() {
