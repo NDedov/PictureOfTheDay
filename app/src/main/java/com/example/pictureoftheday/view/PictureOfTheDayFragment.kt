@@ -45,7 +45,8 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-        viewModel.getData(Date())
+        viewModel.getData(GregorianCalendar().apply { add(Calendar.DATE,-1) }.time)
+
     }
 
     private fun renderData(appState: PictureOfTheDayAppState) {

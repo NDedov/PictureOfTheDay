@@ -3,6 +3,7 @@ package com.example.pictureoftheday.model.retrofit
 import android.annotation.SuppressLint
 import com.example.pictureoftheday.BuildConfig
 import com.example.pictureoftheday.domain.PODServerResponseData
+import com.example.pictureoftheday.domain.convertServerResponseDataToPODData
 import com.example.pictureoftheday.model.CommonPODCallback
 import com.example.pictureoftheday.model.RepositoryPODByDate
 import com.google.gson.GsonBuilder
@@ -36,7 +37,7 @@ class RepositoryPODRetrofitImpl : RepositoryPODByDate {
                     response: Response<PODServerResponseData>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        callback.onResponse(response.body()!!)
+                        callback.onResponse(convertServerResponseDataToPODData(response.body()!!))
                     } else {
                         val message = response.message()
                         if (message.isNullOrEmpty()) {

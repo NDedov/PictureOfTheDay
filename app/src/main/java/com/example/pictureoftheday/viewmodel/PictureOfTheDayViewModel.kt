@@ -3,6 +3,7 @@ package com.example.pictureoftheday.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pictureoftheday.PODApp
+import com.example.pictureoftheday.domain.PODData
 import com.example.pictureoftheday.domain.PODServerResponseData
 import com.example.pictureoftheday.model.CommonPODCallback
 import com.example.pictureoftheday.model.RepositoryPODByDate
@@ -24,7 +25,7 @@ class PictureOfTheDayViewModel(private val liveData: MutableLiveData<PictureOfTh
     }
 
     private val callback = object : CommonPODCallback {
-        override fun onResponse(data: PODServerResponseData) {
+        override fun onResponse(data: PODData) {
             liveData.postValue(PictureOfTheDayAppState.Success(data))
         }
 
