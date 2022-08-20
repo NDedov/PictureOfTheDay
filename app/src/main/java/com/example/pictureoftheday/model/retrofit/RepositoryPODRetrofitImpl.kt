@@ -1,7 +1,6 @@
 package com.example.pictureoftheday.model.retrofit
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import com.example.pictureoftheday.BuildConfig
 import com.example.pictureoftheday.domain.PODServerResponseData
 import com.example.pictureoftheday.domain.convertServerResponseDataToPODData
@@ -14,7 +13,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
 import java.util.*
 
 class RepositoryPODRetrofitImpl : RepositoryPODByDate {

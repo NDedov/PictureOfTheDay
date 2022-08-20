@@ -4,26 +4,26 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
+import com.example.pictureoftheday.MainActivity
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.example.pictureoftheday.domain.PODData
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import java.text.SimpleDateFormat
 import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
@@ -38,6 +38,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
+        private var isMain = true
     }
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
@@ -60,6 +61,7 @@ class PictureOfTheDayFragment : Fragment() {
         setBottomSheetBehavior(view)
         chipInit()
         wikiFindInit()
+        setBottomAppBar(view)
     }
 
     private fun chipInit(){
@@ -80,6 +82,28 @@ class PictureOfTheDayFragment : Fragment() {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
+        }
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+        setHasOptionsMenu(true)
+        binding.fab.setOnClickListener {
+            if (isMain) {
+                isMain = false
+                binding.bottomAppBar.navigationIcon = null
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
+                binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
+            } else {
+                isMain = true
+                binding.bottomAppBar.navigationIcon =
+                    ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
+                binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
+            }
         }
     }
 
@@ -136,6 +160,24 @@ class PictureOfTheDayFragment : Fragment() {
         val bottomSheet = view.findViewById<ConstraintLayout>(R.id.bottom_sheet_container)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_settings -> toast("Settings")
+            android.R.id.home -> {
+                activity?.let {
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
