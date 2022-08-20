@@ -1,11 +1,13 @@
 package com.example.pictureoftheday.model.retrofit
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import com.example.pictureoftheday.BuildConfig
 import com.example.pictureoftheday.domain.PODServerResponseData
 import com.example.pictureoftheday.domain.convertServerResponseDataToPODData
 import com.example.pictureoftheday.model.CommonPODCallback
 import com.example.pictureoftheday.model.RepositoryPODByDate
+import com.example.pictureoftheday.utils.getNASADate
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +31,7 @@ class RepositoryPODRetrofitImpl : RepositoryPODByDate {
 
         api.getPictureOfTheDayByDate(
             BuildConfig.NASA_API_KEY,
-            SimpleDateFormat("yyyy-MM-dd").format(date)
+            getNASADate(date)
         )
             .enqueue(object : Callback<PODServerResponseData> {
                 override fun onResponse(

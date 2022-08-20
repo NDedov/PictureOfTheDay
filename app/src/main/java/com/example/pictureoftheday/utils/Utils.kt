@@ -1,5 +1,6 @@
 package com.example.pictureoftheday.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.PODApp
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -28,4 +31,16 @@ fun Fragment.toast(string: String?) {
         setGravity(Gravity.BOTTOM, 0, 250)
         show()
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getNASADate(date: Date):String{
+    val sourceFormat = SimpleDateFormat("yyyy-MM-dd")
+    sourceFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val now = SimpleDateFormat("yyyy-MM-dd").format(date)
+    val parsed = sourceFormat.parse(now)
+    val tz = TimeZone.getTimeZone("America/Los_Angeles")
+    val destFormat = SimpleDateFormat("yyyy-MM-dd")
+    destFormat.timeZone = tz
+    return destFormat.format(parsed!!)
 }

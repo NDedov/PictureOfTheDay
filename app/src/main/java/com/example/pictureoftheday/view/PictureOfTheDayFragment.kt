@@ -18,10 +18,12 @@ import coil.decode.ImageDecoderDecoder
 import coil.load
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
+import com.example.pictureoftheday.domain.PODData
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.text.SimpleDateFormat
 import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
@@ -38,11 +40,9 @@ class PictureOfTheDayFragment : Fragment() {
         fun newInstance() = PictureOfTheDayFragment()
     }
 
-    //Ленивая инициализация модели
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,20 +52,35 @@ class PictureOfTheDayFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(view, it)}
+        viewModel.getData(GregorianCalendar().time)
+        setBottomSheetBehavior(view)
+        chipInit()
+        wikiFindInit()
+    }
 
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+    private fun chipInit(){
+        binding.chipToday.isChecked = true
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            val dayShift = when (checkedId){
+                binding.chipYesterday.id -> -1
+                binding.chipDayBeforeYesterday.id -> -2
+                else -> {0}
+            }
+            viewModel.getData(GregorianCalendar().apply {
+                add(Calendar.DATE,dayShift) }.time)
+        }
+    }
+
+    private fun wikiFindInit(){
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
-            renderData(view, it)
-        }
-        viewModel.getData(GregorianCalendar().apply { add(Calendar.DATE,-1) }.time)
     }
 
     private fun renderData(view: View, appState: PictureOfTheDayAppState) {
@@ -76,14 +91,7 @@ class PictureOfTheDayFragment : Fragment() {
                 if (url.isNullOrEmpty()) {
                     toast("Link is empty")
                 } else {
-                    binding.imageView.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                        crossfade(false)
-                    }
-                    view.findViewById<TextView>(R.id.bottom_sheet_description).text = serverResponseData.explanation
-                    view.findViewById<TextView>(R.id.bottom_sheet_description_header).text = serverResponseData.title
+                    showImageAndDescription(url, view, serverResponseData)
                 }
             }
             is PictureOfTheDayAppState.Loading -> {
@@ -93,6 +101,23 @@ class PictureOfTheDayFragment : Fragment() {
                 toast(appState.error.message)
             }
         }
+    }
+
+    private fun showImageAndDescription(
+        url: String?,
+        view: View,
+        serverResponseData: PODData
+    ) {
+        binding.imageView.load(url) {
+            lifecycle(this@PictureOfTheDayFragment)
+            error(R.drawable.ic_load_error_vector)
+            placeholder(R.drawable.loading2)
+            crossfade(500)
+        }
+        view.findViewById<TextView>(R.id.bottom_sheet_description).text =
+            serverResponseData.explanation
+        view.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
+            serverResponseData.title
     }
 
     private fun ImageView.loadGif(img: Int) {
@@ -107,7 +132,8 @@ class PictureOfTheDayFragment : Fragment() {
             .build())
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+    private fun setBottomSheetBehavior(view: View) {
+        val bottomSheet = view.findViewById<ConstraintLayout>(R.id.bottom_sheet_container)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
