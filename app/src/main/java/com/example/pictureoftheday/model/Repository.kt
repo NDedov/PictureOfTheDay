@@ -1,6 +1,6 @@
 package com.example.pictureoftheday.model
 
-import com.example.pictureoftheday.domain.PODData
+import com.example.pictureoftheday.model.domain.PODData
 import java.util.*
 
 interface CommonPODCallback{

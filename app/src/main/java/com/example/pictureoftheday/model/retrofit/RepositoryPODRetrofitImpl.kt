@@ -2,8 +2,8 @@ package com.example.pictureoftheday.model.retrofit
 
 import android.annotation.SuppressLint
 import com.example.pictureoftheday.BuildConfig
-import com.example.pictureoftheday.domain.PODServerResponseData
-import com.example.pictureoftheday.domain.convertServerResponseDataToPODData
+import com.example.pictureoftheday.model.domain.PODServerResponseData
+import com.example.pictureoftheday.model.domain.convertServerResponseDataToPODData
 import com.example.pictureoftheday.model.CommonPODCallback
 import com.example.pictureoftheday.model.RepositoryPODByDate
 import com.example.pictureoftheday.utils.getNASADate

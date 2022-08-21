@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.domain
+package com.example.pictureoftheday.model.domain
 
 import com.google.gson.annotations.SerializedName
 

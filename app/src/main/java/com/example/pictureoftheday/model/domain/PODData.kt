@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.domain
+package com.example.pictureoftheday.model.domain
 
 data class PODData (
     val explanation: String?,

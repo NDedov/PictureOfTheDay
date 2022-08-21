@@ -3,7 +3,7 @@ package com.example.pictureoftheday.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pictureoftheday.PODApp
-import com.example.pictureoftheday.domain.PODData
+import com.example.pictureoftheday.model.domain.PODData
 import com.example.pictureoftheday.model.CommonPODCallback
 import com.example.pictureoftheday.model.RepositoryPODByDate
 import java.util.*

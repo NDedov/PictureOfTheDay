@@ -1,6 +1,6 @@
 package com.example.pictureoftheday.model.retrofit
 
-import com.example.pictureoftheday.domain.PODServerResponseData
+import com.example.pictureoftheday.model.domain.PODServerResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

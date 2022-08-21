@@ -18,7 +18,7 @@ import coil.load
 import com.example.pictureoftheday.MainActivity
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
-import com.example.pictureoftheday.domain.PODData
+import com.example.pictureoftheday.model.domain.PODData
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel

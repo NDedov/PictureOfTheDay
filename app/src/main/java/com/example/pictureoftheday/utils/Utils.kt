@@ -26,13 +26,6 @@ fun isConnection(): Boolean {
     }
 }
 
-fun Fragment.toast(string: String?) {
-    Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-        setGravity(Gravity.BOTTOM, 0, 250)
-        show()
-    }
-}
-
 @SuppressLint("SimpleDateFormat")
 fun getNASADate(date: Date):String{
     val sourceFormat = SimpleDateFormat("yyyy-MM-dd")
