@@ -17,7 +17,6 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
     private var _binding: BottomSettingsLayoutBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,12 +24,15 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = BottomSettingsLayoutBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initChipsChecks()
+        initChipGroup()
+    }
 
+    private fun initChipGroup() {
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 binding.defaultThemeChip.id -> {
@@ -46,6 +48,15 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
                     restartActivity()
                 }
             }
+        }
+    }
+
+    private fun initChipsChecks() {
+        val sp = requireActivity().getSharedPreferences(SP_DB_THEME, Context.MODE_PRIVATE)
+        when (sp.getInt(SP_DB_THEME_TAG, R.style.Theme_PictureOfTheDay)){
+            R.style.Theme_PictureOfTheDay -> binding.defaultThemeChip.isChecked = true
+            R.style.MarsTheme -> binding.marsThemeChip.isChecked = true
+            R.style.VenusTheme -> binding.venusThemeChip.isChecked = true
         }
     }
 
