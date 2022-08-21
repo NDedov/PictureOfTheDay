@@ -5,10 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.view.Gravity
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.PODApp
 import java.text.SimpleDateFormat
 import java.util.*

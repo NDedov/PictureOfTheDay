@@ -19,6 +19,8 @@ import com.example.pictureoftheday.MainActivity
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.example.pictureoftheday.model.domain.PODData
+import com.example.pictureoftheday.utils.BOTTOM_NAVIGATION_DRAWER_FRAGMENT
+import com.example.pictureoftheday.utils.BOTTOM_SETTINGS_FRAGMENT_TAG
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
@@ -170,10 +172,14 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
-            R.id.app_bar_settings -> toast("Settings")
+            R.id.app_bar_settings -> {
+                activity?.let {
+                    BottomSettingsFragment().show(it.supportFragmentManager, BOTTOM_SETTINGS_FRAGMENT_TAG)
+                }
+            }
             android.R.id.home -> {
                 activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, BOTTOM_NAVIGATION_DRAWER_FRAGMENT)
                 }
             }
         }
