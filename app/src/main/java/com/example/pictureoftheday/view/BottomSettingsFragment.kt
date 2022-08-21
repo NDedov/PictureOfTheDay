@@ -69,9 +69,7 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
     }
 
     private fun restartActivity(){
-        val intent = requireActivity().intent
-        requireActivity().finish()
-        PODApp.getMyApp().startActivity(intent)
+        requireActivity().recreate()
     }
 
     override fun onDestroyView() {
