@@ -15,6 +15,9 @@
 
         <item name="themeColorPrimary">@color/teal_200</item>
         <item name="colorBottomSheet">@color/light_gray</item>
+
+        <item name="chipStyle">@style/AppChip</item>
+
     </style>
 
     <style name="VenusTheme" parent="Theme.PictureOfTheDay">

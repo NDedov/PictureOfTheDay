@@ -55,15 +55,14 @@ class PictureOfTheDayFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(view, it)}
+        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(it)}
         viewModel.getData(GregorianCalendar().time)
-        setBottomSheetBehavior(view)
         chipInit()
         wikiFindInit()
         setBottomAppBar(view)
+        setBottomSheetBehavior(view)
     }
 
     private fun chipInit(){
@@ -109,7 +108,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun renderData(view: View, appState: PictureOfTheDayAppState) {
+    private fun renderData(appState: PictureOfTheDayAppState) {
         when (appState) {
             is PictureOfTheDayAppState.Success -> {
                 val serverResponseData = appState.serverResponseData
@@ -117,11 +116,11 @@ class PictureOfTheDayFragment : Fragment() {
                 if (url.isNullOrEmpty()) {
                     toast("Link is empty")
                 } else {
-                    showImageAndDescription(url, view, serverResponseData)
+                    showImageAndDescription(url, serverResponseData)
                 }
             }
             is PictureOfTheDayAppState.Loading -> {
-                binding.imageView.loadGif(R.drawable.loading)
+                binding.imageView.loadGif(R.drawable.loading_mod)
             }
             is PictureOfTheDayAppState.Error -> {
                 toast(appState.error.message)
@@ -131,18 +130,17 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun showImageAndDescription(
         url: String?,
-        view: View,
         serverResponseData: PODData
     ) {
         binding.imageView.load(url) {
             lifecycle(this@PictureOfTheDayFragment)
             error(R.drawable.ic_load_error_vector)
-            placeholder(R.drawable.loading)
+            placeholder(R.drawable.loading_mod)
             crossfade(500)
         }
-        view.findViewById<TextView>(R.id.bottom_sheet_description).text =
+        binding.bottomSheetLayout.bottomSheetDescription.text =
             serverResponseData.explanation
-        view.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
+        binding.bottomSheetLayout.bottomSheetDescriptionHeader.text =
             serverResponseData.title
     }
 
@@ -159,7 +157,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun setBottomSheetBehavior(view: View) {
-        val bottomSheet = view.findViewById<ConstraintLayout>(R.id.bottom_sheet_container)
+        val bottomSheet = view.findViewById<ConstraintLayout>(R.id.bottom_sheet_layout)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }

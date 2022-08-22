@@ -22,14 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default_chip_settings"
-            android:checkable="true"
             android:text="@string/default_text_chip_theme_settings" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/mars_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
             android:text="@string/mars_text_chip_theme_settings"
             app:chipIcon="@drawable/ic_mars"
             app:iconStartPadding="@dimen/icon_start_padding_chip_settings" />
@@ -38,7 +36,6 @@
             android:id="@+id/venus_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
             android:text="@string/venus_text_chip_theme_settings"
             app:chipIcon="@drawable/ic_venus"
             app:iconStartPadding="@dimen/icon_start_padding_chip_settings" />
