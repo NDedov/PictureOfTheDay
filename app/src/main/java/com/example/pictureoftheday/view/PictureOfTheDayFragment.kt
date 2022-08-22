@@ -121,7 +121,7 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
             is PictureOfTheDayAppState.Loading -> {
-                binding.imageView.loadGif(R.drawable.loading2)
+                binding.imageView.loadGif(R.drawable.loading)
             }
             is PictureOfTheDayAppState.Error -> {
                 toast(appState.error.message)
@@ -137,7 +137,7 @@ class PictureOfTheDayFragment : Fragment() {
         binding.imageView.load(url) {
             lifecycle(this@PictureOfTheDayFragment)
             error(R.drawable.ic_load_error_vector)
-            placeholder(R.drawable.loading2)
+            placeholder(R.drawable.loading)
             crossfade(500)
         }
         view.findViewById<TextView>(R.id.bottom_sheet_description).text =

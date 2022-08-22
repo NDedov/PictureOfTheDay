@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
 
         <item name="themeColorPrimary">@color/teal_200</item>
-
+        <item name="colorBottomSheet">@color/light_gray</item>
     </style>
 
     <style name="VenusTheme" parent="Theme.PictureOfTheDay">
@@ -25,6 +25,7 @@
         <item name="colorSecondaryVariant">@color/venus_blue_very_light</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="themeColorPrimary">@color/venus_theme_primary</item>
+        <item name="colorBottomSheet">@color/venus_blue_very_very_light</item>
     </style>
 
     <style name="MarsTheme" parent="Theme.PictureOfTheDay">
@@ -35,7 +36,7 @@
         <item name="colorSecondaryVariant">@color/mars_red_very_light</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="themeColorPrimary">@color/mars_theme_primary</item>
+        <item name="colorBottomSheet">@color/mars_red_very_very_light</item>
     </style>
-
 </resources>
 

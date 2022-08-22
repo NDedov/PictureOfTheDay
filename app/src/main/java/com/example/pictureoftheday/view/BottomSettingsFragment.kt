@@ -1,11 +1,13 @@
 package com.example.pictureoftheday.view
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.pictureoftheday.PODApp
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.BottomSettingsLayoutBinding
 import com.example.pictureoftheday.utils.SP_DB_THEME
@@ -30,6 +32,23 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         initChipsChecks()
         initChipGroup()
+        initSwitchNightMode()
+    }
+
+    private fun initSwitchNightMode() {
+        binding.switchNightMode.isChecked = isDarkTheme(requireActivity())
+        binding.switchNightMode.setOnClickListener {
+            if (binding.switchNightMode.isChecked)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun isDarkTheme(activity: Activity): Boolean {
+        return (activity.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) ||
+                (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     private fun initChipGroup() {

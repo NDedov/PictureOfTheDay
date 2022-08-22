@@ -14,4 +14,5 @@
     <string name="default_text_chip_theme_settings">Default</string>
     <string name="mars_text_chip_theme_settings">Mars Theme</string>
     <string name="venus_text_chip_theme_settings">Venus Theme</string>
+    <string name="night_mode_text">Night mode</string>
 </resources>

@@ -5,7 +5,7 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
+    android:background="?attr/colorBottomSheet"
     app:behavior_hideable="false"
     app:behavior_peekHeight="100dp"
     android:visibility="visible"
@@ -16,7 +16,7 @@
         android:layout_width="25dp"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="#663b4351"
+        android:background="@color/color_bottom_sheet_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
         android:layout_marginTop="30dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textColor="#000"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
 
 

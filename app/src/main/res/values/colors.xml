@@ -14,14 +14,19 @@
     <color name="mars_red">#DD2C00</color>
     <color name="mars_red_light">#FF6D00</color>
     <color name="mars_red_dark">#D50000</color>
+    <color name="mars_red_very_dark">#7E1212</color>
     <color name="mars_red_very_light">#C36969</color>
+    <color name="mars_red_very_very_light">#F1DCDC</color>
     <color name="mars_theme_primary">#EF9A9A</color>
     
     <!-- Colors for Venus Theme-->
     <color name="venus_blue">#304FFE</color>
     <color name="venus_blue_light">#0091EA</color>
     <color name="venus_blue_dark">#00437A</color>
+    <color name="venus_blue_very_dark">#022E53</color>
     <color name="venus_blue_very_light">#B2EBF2</color>
+    <color name="venus_blue_very_very_light">#E3F6F8</color>
     <color name="venus_theme_primary">#00B8D4</color>
+    <color name="color_bottom_sheet_line">#663b4351</color>
 
 </resources>
