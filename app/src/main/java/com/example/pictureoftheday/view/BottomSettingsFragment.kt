@@ -19,6 +19,9 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
     private var _binding: BottomSettingsLayoutBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var changeThemeListener: OnChangeThemeListener
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +36,12 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
         initChipsChecks()
         initChipGroup()
         initSwitchNightMode()
+        initChangeThemeListener()
+    }
+
+    private fun initChangeThemeListener() {
+        if (requireActivity() is OnChangeThemeListener)
+            changeThemeListener = requireActivity() as OnChangeThemeListener
     }
 
     private fun initSwitchNightMode() {
@@ -55,16 +64,13 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 binding.defaultThemeChip.id -> {
-                    saveThemeToSP(R.style.Theme_PictureOfTheDay)
-                    restartActivity()
+                    changeThemeListener.changeTheme(R.style.Theme_PictureOfTheDay)
                 }
                 binding.marsThemeChip.id -> {
-                    saveThemeToSP(R.style.MarsTheme)
-                    restartActivity()
+                    changeThemeListener.changeTheme(R.style.MarsTheme)
                 }
                 binding.venusThemeChip.id -> {
-                    saveThemeToSP(R.style.VenusTheme)
-                    restartActivity()
+                    changeThemeListener.changeTheme(R.style.VenusTheme)
                 }
             }
         }
@@ -77,18 +83,6 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
             R.style.MarsTheme -> binding.marsThemeChip.isChecked = true
             R.style.VenusTheme -> binding.venusThemeChip.isChecked = true
         }
-    }
-
-    private fun saveThemeToSP(theme: Int) {
-        val sp = requireActivity().getSharedPreferences(SP_DB_THEME, Context.MODE_PRIVATE)
-        sp.edit().apply() {
-            putInt(SP_DB_THEME_TAG, theme)
-            apply()
-        }
-    }
-
-    private fun restartActivity(){
-        requireActivity().recreate()
     }
 
     override fun onDestroyView() {

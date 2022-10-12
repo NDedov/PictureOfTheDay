@@ -5,9 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pictureoftheday.utils.SP_DB_THEME
 import com.example.pictureoftheday.utils.SP_DB_THEME_TAG
+import com.example.pictureoftheday.view.OnChangeThemeListener
 import com.example.pictureoftheday.view.PictureOfTheDayFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +25,14 @@ class MainActivity : AppCompatActivity() {
         val sp = getSharedPreferences(SP_DB_THEME, Context.MODE_PRIVATE)
         val currentTheme = sp.getInt(SP_DB_THEME_TAG, R.style.Theme_PictureOfTheDay)
         setTheme(currentTheme)
+    }
+
+    override fun changeTheme(theme: Int) {
+        val sp = getSharedPreferences(SP_DB_THEME, Context.MODE_PRIVATE)
+        sp.edit().apply() {
+            putInt(SP_DB_THEME_TAG, theme)
+            apply()
+        }
+        recreate()
     }
 }
