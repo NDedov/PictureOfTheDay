@@ -7,6 +7,7 @@ import com.example.pictureoftheday.utils.SP_DB_THEME
 import com.example.pictureoftheday.utils.SP_DB_THEME_TAG
 import com.example.pictureoftheday.view.OnChangeThemeListener
 import com.example.pictureoftheday.view.PictureOfTheDayFragment
+import com.example.pictureoftheday.view.PictureOfTheDayPagerFragment
 
 class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                .replace(R.id.container, PictureOfTheDayPagerFragment())
                 .commitNow()
         }
         setThemeFromSP()
@@ -35,4 +36,10 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
         }
         recreate()
     }
+}
+
+sealed class Days{
+    object Today:Days()
+    object Yesterday:Days()
+    object TDBY: Days()
 }

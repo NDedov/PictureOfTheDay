@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
+import com.example.pictureoftheday.Days
 import com.example.pictureoftheday.MainActivity
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
@@ -28,7 +28,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
 
-class PictureOfTheDayFragment : Fragment() {
+class PictureOfTheDayFragment(val day:Days) : Fragment() {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding
@@ -39,7 +39,7 @@ class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance(day: Days) = PictureOfTheDayFragment(day)
         private var isMain = true
     }
 
@@ -57,25 +57,21 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(it)}
-        viewModel.getData(GregorianCalendar().time)
-        chipInit()
+        viewModelInit()
         wikiFindInit()
         setBottomAppBar(view)
         setBottomSheetBehavior(view)
     }
 
-    private fun chipInit(){
-        binding.chipToday.isChecked = true
-        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
-            val dayShift = when (checkedId){
-                binding.chipYesterday.id -> -1
-                binding.chipDayBeforeYesterday.id -> -2
-                else -> {0}
-            }
-            viewModel.getData(GregorianCalendar().apply {
-                add(Calendar.DATE,dayShift) }.time)
+    private fun viewModelInit(){
+        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(it)}
+        val dayShift = when (day){
+            Days.Today -> 0
+            Days.Yesterday -> -1
+            Days.TDBY -> -2
         }
+        viewModel.getData(GregorianCalendar().apply {
+            add(Calendar.DATE,dayShift) }.time)
     }
 
     private fun wikiFindInit(){

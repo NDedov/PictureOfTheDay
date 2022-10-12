@@ -15,4 +15,7 @@
     <string name="mars_text_chip_theme_settings">Mars Theme</string>
     <string name="venus_text_chip_theme_settings">Venus Theme</string>
     <string name="night_mode_text">Night mode</string>
+    <string name="today_tab_text">Сегодня</string>
+    <string name="yesterday_tab_text">Вчера</string>
+    <string name="tdby_tab_text">Позавчера</string>
 </resources>
