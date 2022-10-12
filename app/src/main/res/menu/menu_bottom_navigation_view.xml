@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/navigation_pod"
+            android:icon="@drawable/ic_pod"
+            android:title="Картина дня" />
+        <item
+            android:id="@+id/navigation_wiki"
+            android:icon="@drawable/ic_wiki_menu"
+            android:title="Википедия" />
+        <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings_menu"
+            android:title="Настройки" />
+    </group>
+</menu>
