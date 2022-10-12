@@ -8,10 +8,11 @@
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
         app:layout_constraintBottom_toTopOf="@+id/switchNightMode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
@@ -21,7 +22,7 @@
             android:id="@+id/default_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_default_chip_settings"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:text="@string/default_text_chip_theme_settings" />
 
         <com.google.android.material.chip.Chip

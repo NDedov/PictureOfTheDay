@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.view
+package com.example.pictureoftheday.view.pod
 
 import android.os.Build
 import android.os.Bundle
@@ -13,17 +13,17 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
-import com.example.pictureoftheday.Days
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.example.pictureoftheday.model.domain.PODData
 import com.example.pictureoftheday.utils.toast
+import com.example.pictureoftheday.view.podpager.Days
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
 
-class PictureOfTheDayFragment(val day:Days) : Fragment() {
+class PictureOfTheDayFragment(private val day: Days) : Fragment() {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding

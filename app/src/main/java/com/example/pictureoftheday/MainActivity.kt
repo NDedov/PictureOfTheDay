@@ -7,8 +7,8 @@ import com.example.pictureoftheday.databinding.ActivityMainBinding
 import com.example.pictureoftheday.utils.SP_DB_THEME
 import com.example.pictureoftheday.utils.SP_DB_THEME_TAG
 import com.example.pictureoftheday.view.BottomSettingsFragment
-import com.example.pictureoftheday.view.OnChangeThemeListener
-import com.example.pictureoftheday.view.PictureOfTheDayPagerFragment
+import com.example.pictureoftheday.view.pod.OnChangeThemeListener
+import com.example.pictureoftheday.view.podpager.PictureOfTheDayPagerFragment
 import com.example.pictureoftheday.view.WikiFragment
 
 class MainActivity : AppCompatActivity(), OnChangeThemeListener {
@@ -17,10 +17,13 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setThemeFromSP()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initBottomNavigation(savedInstanceState)
+    }
 
+    private fun initBottomNavigation(savedInstanceState: Bundle?) {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_pod -> {
@@ -44,8 +47,8 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
                 else -> false
             }
         }
-        binding.bottomNavigationView.selectedItemId = R.id.navigation_pod
-        setThemeFromSP()
+        if (savedInstanceState == null)
+            binding.bottomNavigationView.selectedItemId = R.id.navigation_pod
     }
 
     private fun setThemeFromSP() {
@@ -56,7 +59,7 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 
     override fun changeTheme(theme: Int) {
         val sp = getSharedPreferences(SP_DB_THEME, Context.MODE_PRIVATE)
-        sp.edit().apply() {
+        sp.edit().apply {
             putInt(SP_DB_THEME_TAG, theme)
             apply()
         }
@@ -64,8 +67,3 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
     }
 }
 
-sealed class Days{
-    object Today:Days()
-    object Yesterday:Days()
-    object TDBY: Days()
-}

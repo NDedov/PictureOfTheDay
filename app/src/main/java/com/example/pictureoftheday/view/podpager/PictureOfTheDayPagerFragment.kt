@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.view
+package com.example.pictureoftheday.view.podpager
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -59,4 +59,10 @@ class PictureOfTheDayPagerFragment : Fragment() {
         _binding = null
     }
 
+}
+
+sealed class Days{
+    object Today:Days()
+    object Yesterday:Days()
+    object TDBY: Days()
 }

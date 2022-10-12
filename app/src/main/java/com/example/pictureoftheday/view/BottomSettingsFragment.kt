@@ -12,6 +12,7 @@ import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.BottomSettingsLayoutBinding
 import com.example.pictureoftheday.utils.SP_DB_THEME
 import com.example.pictureoftheday.utils.SP_DB_THEME_TAG
+import com.example.pictureoftheday.view.pod.OnChangeThemeListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSettingsFragment : BottomSheetDialogFragment() {
