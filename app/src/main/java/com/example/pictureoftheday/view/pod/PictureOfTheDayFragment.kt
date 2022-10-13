@@ -23,7 +23,7 @@ import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
 
-class PictureOfTheDayFragment(private val day: Days) : Fragment() {
+class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding
