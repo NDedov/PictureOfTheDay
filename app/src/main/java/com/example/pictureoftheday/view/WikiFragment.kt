@@ -31,11 +31,15 @@ class WikiFragment : Fragment() {
     }
 
     private fun wikiFindInit(){
-        binding.inputLayout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-            })
-        }
+        binding.inputLayout.setEndIconOnClickListener {wikiStartActivity("en")}
+        binding.wikiFindButtonEn.setOnClickListener {wikiStartActivity("en")}
+        binding.wikiFindButtonRu.setOnClickListener {wikiStartActivity("ru")}
+    }
+
+    private fun wikiStartActivity(domain: String){
+        startActivity(Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("https://${domain}.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+        })
     }
 
     override fun onDestroy() {

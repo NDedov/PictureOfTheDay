@@ -18,4 +18,6 @@
     <string name="today_tab_text">Сегодня</string>
     <string name="yesterday_tab_text">Вчера</string>
     <string name="tdby_tab_text">Позавчера</string>
+    <string name="wiki_russian_text">Российская Wiki</string>
+    <string name="wiki_english_text">Английская Wiki</string>
 </resources>
