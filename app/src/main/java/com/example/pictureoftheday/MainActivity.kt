@@ -8,9 +8,9 @@ import com.example.pictureoftheday.databinding.ActivityMainBinding
 import com.example.pictureoftheday.utils.SP_DB_THEME
 import com.example.pictureoftheday.utils.SP_DB_THEME_TAG
 import com.example.pictureoftheday.view.BottomSettingsFragment
+import com.example.pictureoftheday.view.WikiFragment
 import com.example.pictureoftheday.view.pod.OnChangeThemeListener
 import com.example.pictureoftheday.view.podpager.PictureOfTheDayPagerFragment
-import com.example.pictureoftheday.view.WikiFragment
 
 class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 

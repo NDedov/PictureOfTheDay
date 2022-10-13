@@ -15,9 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/switchNightMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/switchHorMode"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
@@ -49,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/night_mode_text"
-        app:layout_constraintBottom_toTopOf="@id/switchHorMode"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
@@ -58,8 +56,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/top_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/chipGroup"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
-        app:layout_constraintTop_toBottomOf="@+id/switchNightMode" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
+

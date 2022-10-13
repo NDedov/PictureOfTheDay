@@ -19,9 +19,7 @@ class BottomSettingsFragment : BottomSheetDialogFragment() {
 
     private var _binding: BottomSettingsLayoutBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var changeThemeListener: OnChangeThemeListener
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
