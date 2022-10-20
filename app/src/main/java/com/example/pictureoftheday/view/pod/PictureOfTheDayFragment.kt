@@ -30,7 +30,7 @@ import java.util.*
 import kotlin.properties.Delegates
 
 
-class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
+class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment(), OnImageViewAnimationEnd {
 
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding: FragmentPictureOfTheDayBinding
@@ -71,13 +71,12 @@ class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
     private fun initImageViewAnim() {
         binding.imageView.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                isExpanded = !isExpanded
-                if (isExpanded) {
-                    pivotX = (event.x - v.left) / (v.right - v.left)
+                if (!isExpanded) {
+                    pivotX = (event.x - v.left) / (v.right - v.left)// расчет центра для приближения
                     pivotY = (event.y - v.top) / (v.bottom - v.top)
-                    v.scaleView(IMAGE_VIEW_SCALE_BEGIN, IMAGE_VIEW_SCALE_END, pivotX, pivotY)
+                    v.scaleView(IMAGE_VIEW_SCALE_BEGIN, IMAGE_VIEW_SCALE_END, pivotX, pivotY,this)
                 } else
-                    v.scaleView(IMAGE_VIEW_SCALE_END, IMAGE_VIEW_SCALE_BEGIN, pivotX, pivotY)
+                    v.scaleView(IMAGE_VIEW_SCALE_END, IMAGE_VIEW_SCALE_BEGIN, pivotX, pivotY, this)
             }
             true
         }
@@ -152,5 +151,9 @@ class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onEnd() {
+        isExpanded = !isExpanded
     }
 }

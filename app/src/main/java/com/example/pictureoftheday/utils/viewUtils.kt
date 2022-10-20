@@ -6,6 +6,7 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.pictureoftheday.view.pod.OnImageViewAnimationEnd
 
 fun Fragment.toast(string: String?) {
     Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
@@ -14,7 +15,7 @@ fun Fragment.toast(string: String?) {
     }
 }
 
-fun View.scaleView(startScale: Float, endScale: Float, pivotX: Float, pivotY: Float) {
+fun View.scaleView(startScale: Float, endScale: Float, pivotX: Float, pivotY: Float, callback: OnImageViewAnimationEnd) {
     val anim: Animation = ScaleAnimation(
         startScale, endScale,
         startScale, endScale,
@@ -23,5 +24,16 @@ fun View.scaleView(startScale: Float, endScale: Float, pivotX: Float, pivotY: Fl
     )
     anim.fillAfter = true
     anim.duration = 1000
+    anim.setAnimationListener(object : Animation.AnimationListener{
+        override fun onAnimationStart(p0: Animation?) {
+            // не требуется
+        }
+        override fun onAnimationEnd(p0: Animation?) {
+            callback.onEnd()
+        }
+        override fun onAnimationRepeat(p0: Animation?) {
+            // не требуется
+        }
+    })
     this.startAnimation(anim)
 }
