@@ -1,8 +1,10 @@
 package com.example.pictureoftheday.view.pod
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -16,12 +18,17 @@ import coil.load
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.example.pictureoftheday.model.domain.PODData
+import com.example.pictureoftheday.utils.IMAGE_VIEW_SCALE_BEGIN
+import com.example.pictureoftheday.utils.IMAGE_VIEW_SCALE_END
+import com.example.pictureoftheday.utils.scaleView
 import com.example.pictureoftheday.utils.toast
 import com.example.pictureoftheday.view.podpager.Days
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayAppState
 import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
+import kotlin.properties.Delegates
+
 
 class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
 
@@ -30,6 +37,10 @@ class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
         get() {
             return _binding!!
         }
+
+    private var isExpanded = false
+    private var pivotX by Delegates.notNull<Float>()
+    private var pivotY by Delegates.notNull<Float>()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -53,17 +64,35 @@ class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModelInit()
         setBottomSheetBehavior(view)
+        initImageViewAnim()
     }
 
-    private fun viewModelInit(){
-        viewModel.getLiveData().observe(viewLifecycleOwner) {renderData(it)}
-        val dayShift = when (day){
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initImageViewAnim() {
+        binding.imageView.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                isExpanded = !isExpanded
+                if (isExpanded) {
+                    pivotX = (event.x - v.left) / (v.right - v.left)
+                    pivotY = (event.y - v.top) / (v.bottom - v.top)
+                    v.scaleView(IMAGE_VIEW_SCALE_BEGIN, IMAGE_VIEW_SCALE_END, pivotX, pivotY)
+                } else
+                    v.scaleView(IMAGE_VIEW_SCALE_END, IMAGE_VIEW_SCALE_BEGIN, pivotX, pivotY)
+            }
+            true
+        }
+    }
+
+    private fun viewModelInit() {
+        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
+        val dayShift = when (day) {
             Days.Today -> 0
             Days.Yesterday -> -1
             Days.TDBY -> -2
         }
         viewModel.getData(GregorianCalendar().apply {
-            add(Calendar.DATE,dayShift) }.time)
+            add(Calendar.DATE, dayShift)
+        }.time)
     }
 
     private fun renderData(appState: PictureOfTheDayAppState) {
