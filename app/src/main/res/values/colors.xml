@@ -29,4 +29,9 @@
     <color name="venus_theme_primary">#00B8D4</color>
     <color name="color_bottom_sheet_line">#663b4351</color>
 
+    <!-- Colors for SolarSystem-->
+    <color name="earth_background_color">#00202C</color>
+    <color name="sun_background_color">#3F0A00</color>
+    <color name="planet_background_color">#000000</color>
+
 </resources>

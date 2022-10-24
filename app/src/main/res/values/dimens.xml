@@ -2,4 +2,5 @@
 <resources>
     <dimen name="icon_start_padding_chip_settings">4dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
+    <dimen name="name_planet_text_size_solar_system">24sp</dimen>
 </resources>

@@ -9,7 +9,6 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior=".view.pod.PODBehavior"
         android:contentDescription="@string/photo_of_the_day_stub"
         app:srcCompat="@drawable/ic_no_photo_vector" />
 

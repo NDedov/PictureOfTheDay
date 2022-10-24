@@ -11,6 +11,7 @@ import com.example.pictureoftheday.view.BottomSettingsFragment
 import com.example.pictureoftheday.view.WikiFragment
 import com.example.pictureoftheday.view.pod.OnChangeThemeListener
 import com.example.pictureoftheday.view.podpager.PictureOfTheDayPagerFragment
+import com.example.pictureoftheday.view.solarsystem.SolarSystemFragment
 
 class MainActivity : AppCompatActivity(), OnChangeThemeListener {
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), OnChangeThemeListener {
                 R.id.navigation_pod -> { navigateTo(PictureOfTheDayPagerFragment()); true }
                 R.id.navigation_wiki -> { navigateTo(WikiFragment()); true }
                 R.id.navigation_settings -> { navigateTo(BottomSettingsFragment()); true }
+                R.id.navigation_solar_system -> { navigateTo(SolarSystemFragment()); true }
                 else -> false
             }
         }

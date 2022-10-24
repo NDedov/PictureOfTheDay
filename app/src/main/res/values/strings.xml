@@ -21,4 +21,9 @@
     <string name="wiki_russian_text">Российская Wiki</string>
     <string name="wiki_english_text">Английская Wiki</string>
     <string name="top_text">Top</string>
+    <string name="pod_text_menu">Картина дня</string>
+    <string name="wiki_text_menu">Википедия</string>
+    <string name="solar_system_text_menu">Квест</string>
+    <string name="settings_text_menu">Настройки</string>
+    <string name="text_question_solar_system">Расположите планеты Солнечной системы, по удаленности от Солнца. Верхнее - Солнце</string>
 </resources>
