@@ -2,6 +2,7 @@ package com.example.pictureoftheday.view.solarsystem
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,10 @@ class SolarSystemRecyclerAdapter(
                         onPlanetClickListener.onClick(layoutPosition)
                     }
                 }
-                itemView.findViewById<TextView>(R.id.text_planet).text = data.first.name
+                with(itemView.findViewById<TextView>(R.id.text_planet)){
+                    text = data.first.name
+                    typeface = Typeface.createFromAsset(itemView.context.assets,"fonts/Doubleplus.ttf")
+                }
             }
         }
 
@@ -80,7 +84,6 @@ class SolarSystemRecyclerAdapter(
 
     inner class SunViewHolder(view: View) : PlanetCommonViewHolder(view),
         ItemTouchHelperViewHolder {
-        @SuppressLint("ClickableViewAccessibility")
         override fun bind(data: Pair<Planet, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 with(itemView.findViewById<TextView>(R.id.descriptionTextView)) {
@@ -95,8 +98,10 @@ class SolarSystemRecyclerAdapter(
                     setOnClickListener {
                         onPlanetClickListener.onClick(layoutPosition)
                     }
-                itemView.findViewById<TextView>(R.id.text_planet).text = data.first.name
-
+                }
+                with(itemView.findViewById<TextView>(R.id.text_planet)){
+                    text = data.first.name
+                    typeface = Typeface.createFromAsset(itemView.context.assets,"fonts/Doubleplus.ttf")
                 }
             }
         }
@@ -127,7 +132,10 @@ class SolarSystemRecyclerAdapter(
                         onPlanetClickListener.onClick(layoutPosition)
                     }
                 }
-                itemView.findViewById<TextView>(R.id.text_planet).text = data.first.name
+                with(itemView.findViewById<TextView>(R.id.text_planet)){
+                    text = data.first.name
+                    typeface = Typeface.createFromAsset(itemView.context.assets,"fonts/Doubleplus.ttf")
+                }
             }
         }
 
