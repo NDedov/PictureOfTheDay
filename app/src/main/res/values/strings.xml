@@ -26,4 +26,9 @@
     <string name="solar_system_text_menu">Квест</string>
     <string name="settings_text_menu">Настройки</string>
     <string name="text_question_solar_system">Расположите планеты Солнечной системы, по удаленности от Солнца. Верхнее - Солнце</string>
+    <string name="congratulation_title">Поздравляю</string>
+    <string name="congratulation_message">Планеты расставлены верно!</string>
+    <string name="congratulation_positive_button">Я молодец</string>
+    <string name="task_title">Задание</string>
+    <string name="task_positive_button">Понятно</string>
 </resources>

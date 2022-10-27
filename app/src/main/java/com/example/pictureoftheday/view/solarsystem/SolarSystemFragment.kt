@@ -33,9 +33,12 @@ class SolarSystemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        showTask()
         val data = makeList()
+        initAdapter(data)
+    }
 
+    private fun initAdapter(data: MutableList<Pair<Planet, Boolean>>) {
         val adapter = SolarSystemRecyclerAdapter(
             data,
             object : OnPlanetClickListener {
@@ -50,23 +53,32 @@ class SolarSystemFragment : Fragment() {
                 override fun onMove(fromPosition: Int, toPosition: Int) {
                     Collections.swap(data,fromPosition,toPosition)
                     binding.recycleViewSolarSystem.adapter?.notifyItemMoved(fromPosition, toPosition)
-                    if (checkCorrect(data)){
-                        Toast.makeText(requireContext(),"Поздравляю! Собрали!",Toast.LENGTH_LONG).show()
-                        binding.recycleViewSolarSystem.alpha = 0f
-                        binding.recycleViewSolarSystem.animate().alpha(1f).duration = 2000L
-                    }
+                    if (checkCorrect(data))
+                        showCongratulation()
                 }
             }
         )
-
         binding.recycleViewSolarSystem.adapter = adapter
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.recycleViewSolarSystem)
+    }
 
+    private fun showCongratulation() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Задание")
+            .setTitle(getString(R.string.congratulation_title))
+            .setMessage(getString(R.string.congratulation_message))
+            .setPositiveButton(getString(R.string.congratulation_positive_button),null)
+            .setIcon(R.drawable.ic_galaxy_menu)
+            .show()
+        binding.recycleViewSolarSystem.alpha = 0f
+        binding.recycleViewSolarSystem.animate().alpha(1f).duration = 2000L
+    }
+
+    private fun showTask() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.task_title))
             .setMessage(getString(R.string.text_question_solar_system))
-            .setPositiveButton("Понятно",null)
+            .setPositiveButton(getString(R.string.task_positive_button),null)
             .setIcon(R.drawable.ic_galaxy_menu)
             .show()
     }
