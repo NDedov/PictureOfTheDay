@@ -1,14 +1,20 @@
 package com.example.pictureoftheday.view.pod
 
 import android.annotation.SuppressLint
+
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
@@ -124,10 +130,17 @@ class PictureOfTheDayFragment(private val day: Days = Days.Today) : Fragment(), 
             placeholder(R.drawable.loading_mod)
             crossfade(500)
         }
-        binding.bottomSheetLayout.bottomSheetDescription.text =
-            serverResponseData.explanation
-        binding.bottomSheetLayout.bottomSheetDescriptionHeader.text =
-            serverResponseData.title
+        val string  = serverResponseData.title
+        val spannableString = SpannableString(string)
+        val bitmap  = ContextCompat.getDrawable(requireContext(),R.drawable.ic_o_planet)!!.toBitmap()
+        if (string != null) {
+            for (i in string.indices)
+                if (string[i] == 'o'){
+                    spannableString.setSpan(ImageSpan(requireContext(),bitmap),i,i+1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            binding.bottomSheetLayout.bottomSheetDescriptionHeader.text = spannableString
+        }
+        binding.bottomSheetLayout.bottomSheetDescription.text = serverResponseData.explanation
     }
 
     private fun ImageView.loadGif(img: Int) {
